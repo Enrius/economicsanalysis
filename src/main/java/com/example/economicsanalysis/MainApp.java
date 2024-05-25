@@ -12,7 +12,7 @@ public class MainApp extends Application {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
             BorderPane root = loader.load();
-            Scene scene = new Scene(root, 800, 600); // Set the preferred window size here
+            Scene scene = new Scene(root, 965, 600); // Set the preferred window size here
             primaryStage.setScene(scene);
             primaryStage.setTitle("Economics Analysis");
             primaryStage.show();

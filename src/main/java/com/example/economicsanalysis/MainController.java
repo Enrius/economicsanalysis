@@ -8,6 +8,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import javafx.scene.control.TableCell;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,6 +36,7 @@ public class MainController {
     private TableColumn<Indicator, Double> growthRateColumn;
 
     private final DecimalFormat df = new DecimalFormat("#.##");
+    private String currentDbPath = "/economics.db";  // Default database
 
     @FXML
     private void initialize() {
@@ -51,7 +53,27 @@ public class MainController {
         absoluteDeviationColumn.setPrefWidth(150);
         growthRateColumn.setPrefWidth(150);
 
-        // Add custom cell factory for formatting double values to two decimal places
+        // Add custom cell factory for nameColumn to support multi-line text
+        nameColumn.setCellFactory(column -> {
+            return new TableCell<Indicator, String>() {
+                private final Text text = new Text();
+
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setText(null);
+                        setGraphic(null);
+                    } else {
+                        text.setText(item);
+                        text.wrappingWidthProperty().bind(nameColumn.widthProperty().subtract(10));
+                        setGraphic(text);
+                    }
+                }
+            };
+        });
+
+        // Add custom cell factory for formatting double values to two decimal places and color coding growth rate
         Callback<TableColumn<Indicator, Double>, TableCell<Indicator, Double>> cellFactory = column -> new TableCell<Indicator, Double>() {
             @Override
             protected void updateItem(Double item, boolean empty) {
@@ -67,19 +89,52 @@ public class MainController {
         previousYearColumn.setCellFactory(cellFactory);
         currentYearColumn.setCellFactory(cellFactory);
         absoluteDeviationColumn.setCellFactory(cellFactory);
-        growthRateColumn.setCellFactory(cellFactory);
+        growthRateColumn.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(Double item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(df.format(item));
+                    setTextFill(item >= 100 ? javafx.scene.paint.Color.GREEN : javafx.scene.paint.Color.RED);
+                }
+            }
+        });
     }
 
     @FXML
     private void handleLoadData() {
+        loadData(currentDbPath);
+    }
+
+    @FXML
+    private void handleLoadDataLocomotives() {
+        clearTable();
+        currentDbPath = "/locomotives.db";
+    }
+
+    @FXML
+    private void handleLoadDataEquipment() {
+        clearTable();
+        currentDbPath = "/equipment.db";
+    }
+
+    @FXML
+    private void handleLoadDataMain() {
+        clearTable();
+        currentDbPath = "/economics.db";
+    }
+
+    private void loadData(String dbPath) {
         ObservableList<Indicator> indicators = FXCollections.observableArrayList();
-        Path tempDbFile = extractDatabaseFile("/economics.db");
+        Path tempDbFile = extractDatabaseFile(dbPath);
 
         if (tempDbFile != null) {
             String url = "jdbc:sqlite:" + tempDbFile.toString();
 
             try (Connection conn = DriverManager.getConnection(url)) {
-                String query = "SELECT * FROM indicators";
+                String query = "SELECT name, previous_year, current_year FROM indicators";
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(query);
 
@@ -98,10 +153,18 @@ public class MainController {
     }
 
     @FXML
-    private void handleShowTable() {
-        // Your logic to show the table goes here.
-        // For now, we can simply call handleLoadData to load the data into the table.
-        handleLoadData();
+    private void handleCalculate() {
+        for (Indicator indicator : table.getItems()) {
+            double absoluteDeviation = indicator.getCurrentYear() - indicator.getPreviousYear();
+            double growthRate = (indicator.getCurrentYear() / indicator.getPreviousYear()) * 100;
+            indicator.setAbsoluteDeviation(absoluteDeviation);
+            indicator.setGrowthRate(growthRate);
+        }
+        table.refresh();
+    }
+
+    private void clearTable() {
+        table.getItems().clear();
     }
 
     private Path extractDatabaseFile(String resourcePath) {

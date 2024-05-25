@@ -16,8 +16,9 @@
                 <Insets top="10" right="10" bottom="10" left="10"/>
             </padding>
             <Label text="Menu"/>
-            <Button text="Основные средства" onAction="#handleShowTable"/>
-            <!-- Add more buttons or items here as needed -->
+            <Button text="Основные средства" onAction="#handleLoadDataMain"/>
+            <Button text="Локомотивы" onAction="#handleLoadDataLocomotives"/>
+            <Button text="Оборудование" onAction="#handleLoadDataEquipment"/>
         </VBox>
     </left>
 
@@ -37,6 +38,7 @@
                 </columns>
             </TableView>
             <Button text="Load Data" onAction="#handleLoadData"/>
+            <Button text="Рассчитать" onAction="#handleCalculate"/>
         </VBox>
     </center>
 </BorderPane>

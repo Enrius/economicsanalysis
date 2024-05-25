@@ -1,42 +1,56 @@
 package com.example.economicsanalysis;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 public class Indicator {
-    private final StringProperty name;
-    private final DoubleProperty previousYear;
-    private final DoubleProperty currentYear;
-    private final DoubleProperty absoluteDeviation;
-    private final DoubleProperty growthRate;
+    private String name;
+    private double previousYear;
+    private double currentYear;
+    private double absoluteDeviation;
+    private double growthRate;
 
     public Indicator(String name, double previousYear, double currentYear) {
-        this.name = new SimpleStringProperty(name);
-        this.previousYear = new SimpleDoubleProperty(previousYear);
-        this.currentYear = new SimpleDoubleProperty(currentYear);
-        this.absoluteDeviation = new SimpleDoubleProperty(currentYear - previousYear);
-        this.growthRate = new SimpleDoubleProperty((currentYear  / previousYear) * 100);
+        this.name = name;
+        this.previousYear = previousYear;
+        this.currentYear = currentYear;
     }
 
-    public StringProperty nameProperty() {
+    // Getters and setters
+    public String getName() {
         return name;
     }
 
-    public DoubleProperty previousYearProperty() {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPreviousYear() {
         return previousYear;
     }
 
-    public DoubleProperty currentYearProperty() {
+    public void setPreviousYear(double previousYear) {
+        this.previousYear = previousYear;
+    }
+
+    public double getCurrentYear() {
         return currentYear;
     }
 
-    public DoubleProperty absoluteDeviationProperty() {
+    public void setCurrentYear(double currentYear) {
+        this.currentYear = currentYear;
+    }
+
+    public double getAbsoluteDeviation() {
         return absoluteDeviation;
     }
 
-    public DoubleProperty growthRateProperty() {
+    public void setAbsoluteDeviation(double absoluteDeviation) {
+        this.absoluteDeviation = absoluteDeviation;
+    }
+
+    public double getGrowthRate() {
         return growthRate;
+    }
+
+    public void setGrowthRate(double growthRate) {
+        this.growthRate = growthRate;
     }
 }
