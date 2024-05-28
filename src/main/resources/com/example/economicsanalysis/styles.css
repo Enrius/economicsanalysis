@@ -1,0 +1,43 @@
+.vbox-style {
+    -fx-background-color: #F0E68C;
+    -fx-border-color: #ffc125b3;
+}
+.button {
+    -fx-border-width: 2;
+    -fx-border-color: #FFE4C4;
+    -fx-background-color: #FFDAB9;
+    cursor: pointer;
+}
+
+.button:hover {
+    -fx-background-color: #FFC125;
+}
+
+.button:pressed {
+    -fx-background-color: #FFDAB9;
+}
+
+.menu_button{
+-fx-border-color: #FFC125;
+-fx-font-size: 20px;
+-fx-text-fill: #201140fd;
+/*-fx-font-weight: bold;*/
+-fx-font-style: italic;
+-fx-background-color: fcd060;
+-fx-padding: 10px;
+}
+
+.text {
+-fx-font-style: italic;
+}
+.uploadData{
+-fx-font-size: 20px;
+-fx-font-weight: bold;
+}
+
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {
+    -fx-background-color: fcd060;
+    -fx-border-color: #FFC125;
+}

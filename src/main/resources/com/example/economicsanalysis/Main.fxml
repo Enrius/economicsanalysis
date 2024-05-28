@@ -1,44 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.economicsanalysis.MainController">
-    <!-- Sidebar -->
-    <left>
-        <VBox spacing="10.0" BorderPane.alignment="CENTER">
-            <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
-            <Label text="Menu"/>
-            <Button text="Основные средства" onAction="#handleLoadDataMain"/>
-            <Button text="Локомотивы" onAction="#handleLoadDataLocomotives"/>
-            <Button text="Оборудование" onAction="#handleLoadDataEquipment"/>
-        </VBox>
-    </left>
+<BorderPane stylesheets="@/com/example/economicsanalysis/styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.economicsanalysis.MainController">
+<!-- Sidebar -->
+<left>
+    <VBox prefHeight="582.0" prefWidth="256.0" spacing="10.0" styleClass="vbox-style" BorderPane.alignment="CENTER_LEFT">
+        <Label alignment="CENTER" prefHeight="51.0" prefWidth="302.0" styleClass="menu_button" text="Меню">
+            <VBox.margin>
+                <Insets top="20.0" />
+            </VBox.margin></Label>
+        <Button onAction="#handleLoadDataMain" prefHeight="37.0" prefWidth="302.0" text="Основные средства" />
+        <Button onAction="#handleLoadDataLocomotives" prefHeight="41.0" prefWidth="302.0" text="Локомотивы" />
+        <Button onAction="#handleLoadDataEquipment" prefHeight="42.0" prefWidth="302.0" text="Оборудование" />
+        <Button onAction="#handleOpenCalculationWindow" prefHeight="42.0" prefWidth="302.0" text="Расчетные показатели"/>
+        <TextFlow prefHeight="200.0" prefWidth="254.0" />
+        <BorderPane.margin>
+            <Insets />
+        </BorderPane.margin>
+        <opaqueInsets>
+            <Insets />
+        </opaqueInsets>
+    </VBox>
+</left>
 
-    <!-- Main content area -->
-    <center>
-        <VBox spacing="10.0" BorderPane.alignment="CENTER">
-            <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
-            <TableView fx:id="table">
-                <columns>
-                    <TableColumn fx:id="nameColumn" text="Name" prefWidth="230"/>
-                    <TableColumn fx:id="previousYearColumn" text="Previous Year" prefWidth="100"/>
-                    <TableColumn fx:id="currentYearColumn" text="Current Year" prefWidth="100"/>
-                    <TableColumn fx:id="absoluteDeviationColumn" text="Absolute Deviation" prefWidth="100"/>
-                    <TableColumn fx:id="growthRateColumn" text="Growth Rate (%)" prefWidth="100"/>
-                </columns>
-            </TableView>
-            <Button text="Load Data" onAction="#handleLoadData"/>
-            <Button text="Рассчитать" onAction="#handleCalculate"/>
-        </VBox>
-    </center>
+<!-- Main content area -->
+<center>
+    <VBox spacing="10.0" style="-fx-background-color: #FFFACD;" BorderPane.alignment="CENTER">
+        <padding>
+            <Insets bottom="10" left="10" right="10" top="10" />
+        </padding>
+        <Label fx:id="uploadData" text="Загрузите данные" styleClass="uploadData">
+            <VBox.margin>
+                <Insets left="250.0" top="15.0" />
+            </VBox.margin></Label>
+        <TableView fx:id="table" prefHeight="478.0" prefWidth="632.0">
+            <columns>
+                <TableColumn fx:id="nameColumn" prefWidth="96.19994962215424" text="Показатель" />
+                <TableColumn fx:id="previousYearColumn" prefWidth="96.80005645751953" text="Предшествующий год" />
+                <TableColumn fx:id="currentYearColumn" minWidth="0.0" prefWidth="96.79998779296875" text="Отчетный год" />
+                <TableColumn fx:id="absoluteDeviationColumn" prefWidth="96.60003662109375" text="Абсолютное отклонение" />
+                <TableColumn fx:id="growthRateColumn" prefWidth="96.39993286132812" text="Темп роста (%)" />
+            </columns>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <VBox.margin>
+                <Insets />
+            </VBox.margin>
+        </TableView>
+        <Button onAction="#handleLoadData" text="Загрузить данные" />
+        <Button onAction="#handleCalculate" text="Рассчитать" />
+    </VBox>
+</center>
 </BorderPane>
