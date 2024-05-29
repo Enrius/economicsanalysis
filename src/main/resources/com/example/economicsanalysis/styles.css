@@ -41,3 +41,9 @@
     -fx-background-color: fcd060;
     -fx-border-color: #FFC125;
 }
+
+.chart-data-label {
+    -fx-font-size: 10px;
+    -fx-fill: black; /* Цвет текста */
+    -fx-font-weight: bold; /* Жирный шрифт для лучшей видимости */
+}

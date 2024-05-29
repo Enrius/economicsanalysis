@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.economicsanalysis.GraphController" stylesheets="@/com/example/economicsanalysis/styles.css">
+    <center>
+        <LineChart fx:id="lineChart" title="График динамики" legendVisible="true">
+            <xAxis>
+                <CategoryAxis label="Год"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis fx:id="yAxis" label="Значение"/>
+            </yAxis>
+        </LineChart>
+    </center>
+</BorderPane>

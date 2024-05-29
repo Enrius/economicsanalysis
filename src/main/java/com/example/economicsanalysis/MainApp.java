@@ -14,7 +14,7 @@ public class MainApp extends Application {
             BorderPane root = loader.load();
             Scene scene = new Scene(root, 1080, 600); // Set the preferred window size here
             primaryStage.setScene(scene);
-            primaryStage.setTitle("Economics Analysis");
+            primaryStage.setTitle("Анализ экономических показателей");
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();

@@ -10,7 +10,9 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.economicsanalysis.CalculationController"
-      spacing="10.0" alignment="CENTER">
+      spacing="10.0" alignment="CENTER"
+      style="-fx-background-color: #FFFACD;"
+      stylesheets="@/com/example/economicsanalysis/styles.css">
 
     <padding>
         <Insets top="10" right="10" bottom="10" left="10"/>
